@@ -34,9 +34,10 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
-    path: "/websocket",
+    path: "/websocket/:itemId/:name/:namejp",
     name: "Websocket",
     component: Websocket,
+    props: true,
     meta: { requiresAuth: true },
   },
 ];

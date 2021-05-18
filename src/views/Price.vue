@@ -42,6 +42,20 @@
       <div class="main__final-price">最終取引価格</div>
       <div class="main__price">{{ price }}</div>
       <div class="timestamp">{{ timestamp | moment }}</div>
+      <button
+        @click="
+          $router.push({
+            name: 'Websocket',
+            params: {
+              itemId: itemId,
+              name: name,
+              namejp: namejp,
+            },
+          })
+        "
+      >
+        Real-time chart
+      </button>
     </div>
   </div>
 </template>
@@ -72,7 +86,6 @@ export default {
     const coinData = item.data.data;
     this.price = coinData[0].last;
     this.timestamp = coinData[0].timestamp;
-
   },
   methods: {
     openDrawerMenu() {
@@ -115,10 +128,17 @@ export default {
   margin-bottom: 88px;
   color: white;
 }
-.timestamp{
+.timestamp {
   font-size: 40px;
   text-align: center;
   color: white;
+  margin-bottom: 64px;
+}
+button {
+  background-color: black;
+  color: #f58125;
+  font-size: 30px;
+  width: 250px;
 }
 
 @media screen and (max-width: 768px) {
@@ -128,10 +148,10 @@ export default {
   .main__final-price {
     font-size: 40px;
   }
-  .main__price{
+  .main__price {
     font-size: 48px;
   }
-  .timestamp{
+  .timestamp {
     font-size: 32px;
   }
 }

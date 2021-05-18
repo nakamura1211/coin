@@ -39,7 +39,6 @@
     </transition>
 
     <div class="line-chart">
-      <div>{{ message }}</div>
       <div class="chart-area">
         <CompLine :data="chart1.data" :options="chart1.options" />
       </div>
@@ -52,6 +51,7 @@ import firebase from "firebase";
 import CompLine from "../components/CompLine.vue";
 
 export default {
+  props: ["itemId", "name", "namejp"],
   name: "line-chart",
   components: {
     CompLine,
@@ -70,7 +70,7 @@ export default {
           datasets: [
             {
               // データセット(複数指定可能)
-              label: "BTC", // データラベル
+              label: this.name, // データラベル
               backgroundColor: "rgba(255, 99, 132, 0.2)", // 背景色(fill)
               borderColor: "rgb(255, 99, 132)",
               data: [], // データ格納用配列
@@ -83,8 +83,8 @@ export default {
           layout: {
             // チャートレイアウト
             padding: {
-              left: 0,
-              right: 0,
+              left: 100,
+              right: 100,
               top: 0,
               bottom: 0,
             },
@@ -98,9 +98,9 @@ export default {
                 realtime: {
                   duration: 300000,
                   delay: 1000, // 滑らかに表示したい場合？
-                  refresh: 6000,
-                  onRefresh: function(chart1) {
-                    chart1.data.datasets.forEach(function(dataset) {
+                  refresh: 10000,
+                  onRefresh: (chart1) => {
+                    chart1.data.datasets.forEach((dataset) => {
                       dataset.data.push({
                         x: Date.now(),
                         y: this.message,
@@ -121,16 +121,15 @@ export default {
     const ws_params = {
       command: "subscribe",
       channel: "ticker",
-      symbol: "BTC",
+      symbol: this.name,
     };
-    ws.addEventListener("open", function() {
+    ws.addEventListener("open", () => {
       ws.send(JSON.stringify(ws_params));
     });
 
     ws.addEventListener("message", (e) => {
       const data = JSON.parse(e.data);
       this.message = data.last;
-      console.log(this.message);
     });
   },
 

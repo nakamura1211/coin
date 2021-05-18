@@ -45,7 +45,7 @@
         <input
           type="email"
           class="authentication__list"
-          placeholder="Eメール"
+          placeholder="メールアドレス"
           v-model="mailaddress"
         />
         <input
