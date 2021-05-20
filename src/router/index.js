@@ -27,14 +27,14 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
-    path: "/price/:itemId/:name/:namejp",
+    path: "/price/:itemId/",
     name: "Price",
     component: Price,
     props: true,
     meta: { requiresAuth: true },
   },
   {
-    path: "/websocket/:itemId/:name/:namejp",
+    path: "/websocket/:itemId/",
     name: "Websocket",
     component: Websocket,
     props: true,

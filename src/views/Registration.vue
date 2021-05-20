@@ -5,12 +5,16 @@
         CryptoApp
       </div>
       <ul class="header__nav">
-        <li class="header__list" @click="$router.push('/currency')">
+        <li
+          class="header__list"
+          @click="$router.push('/currency')"
+          v-if="logout"
+        >
           通貨一覧
         </li>
         <li class="header__list" @click="$router.push('/')">新規登録</li>
         <li class="header__list" @click="$router.push('/login')">ログイン</li>
-        <li class="header__list" @click="Logout">ログアウト</li>
+        <li class="header__list" @click="Logout" v-if="logout">ログアウト</li>
       </ul>
       <div
         class="menu"
@@ -25,15 +29,11 @@
     <transition name="right">
       <ul class="menu__nav" v-if="drawerFlg">
         <li class="menu__list">
-          <span @click="$router.push('/currency')">通貨一覧</span>
-        </li>
-        <li class="menu__list">
           <span @click="$router.push('/')">新規登録</span>
         </li>
         <li class="menu__list">
           <span @click="$router.push('/login')">ログイン</span>
         </li>
-        <li class="menu__list"><span @click="Logout">ログアウト</span></li>
       </ul>
     </transition>
     <div class="authentication">
@@ -94,6 +94,7 @@ export default {
       drawerFlg: false,
       active: false,
       from: { mailaddress: "", password: "" },
+      logout: false,
     };
   },
   methods: {

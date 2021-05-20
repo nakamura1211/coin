@@ -8,8 +8,12 @@
         <li class="header__list" @click="$router.push('/currency')">
           通貨一覧
         </li>
-        <li class="header__list" @click="$router.push('/')">新規登録</li>
-        <li class="header__list" @click="$router.push('/login')">ログイン</li>
+        <li class="header__list" @click="$router.push('/')" v-if="login">
+          新規登録
+        </li>
+        <li class="header__list" @click="$router.push('/login')" v-if="login">
+          ログイン
+        </li>
         <li class="header__list" @click="Logout">ログアウト</li>
       </ul>
       <div
@@ -26,12 +30,6 @@
       <ul class="menu__nav" v-if="drawerFlg">
         <li class="menu__list">
           <span @click="$router.push('/currency')">通貨一覧</span>
-        </li>
-        <li class="menu__list">
-          <span @click="$router.push('/')">新規登録</span>
-        </li>
-        <li class="menu__list">
-          <span @click="$router.push('/login')">ログイン</span>
         </li>
         <li class="menu__list"><span @click="Logout">ログアウト</span></li>
       </ul>
@@ -79,6 +77,7 @@ export default {
       timestamp: "",
       drawerFlg: false,
       active: false,
+      login: false,
     };
   },
   async created() {
@@ -139,6 +138,7 @@ button {
   color: #f58125;
   font-size: 30px;
   width: 250px;
+  border-radius: 30px;
 }
 
 @media screen and (max-width: 768px) {

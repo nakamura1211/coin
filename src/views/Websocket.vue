@@ -8,8 +8,12 @@
         <li class="header__list" @click="$router.push('/currency')">
           通貨一覧
         </li>
-        <li class="header__list" @click="$router.push('/')">新規登録</li>
-        <li class="header__list" @click="$router.push('/login')">ログイン</li>
+        <li class="header__list" @click="$router.push('/')" v-if="login">
+          新規登録
+        </li>
+        <li class="header__list" @click="$router.push('/login')" v-if="login">
+          ログイン
+        </li>
         <li class="header__list" @click="Logout">ログアウト</li>
       </ul>
 
@@ -27,12 +31,6 @@
       <ul class="menu__nav" v-if="drawerFlg">
         <li class="menu__list">
           <span @click="$router.push('/currency')">通貨一覧</span>
-        </li>
-        <li class="menu__list">
-          <span @click="$router.push('/')">新規登録</span>
-        </li>
-        <li class="menu__list">
-          <span @click="$router.push('/login')">ログイン</span>
         </li>
         <li class="menu__list"><span @click="Logout">ログアウト</span></li>
       </ul>
@@ -61,7 +59,7 @@ export default {
       message: "",
       drawerFlg: false,
       active: false,
-
+      login: false,
       // chart1 start
       chart1: {
         type: "line", // チャート計上 line -> 折れ線グラフ
@@ -71,8 +69,8 @@ export default {
             {
               // データセット(複数指定可能)
               label: this.name, // データラベル
-              backgroundColor: "rgba(255, 99, 132, 0.2)", // 背景色(fill)
-              borderColor: "rgb(255, 99, 132)",
+              backgroundColor: "rgba(245, 129, 37, 0.2)", // 背景色(fill)
+              borderColor: "rgb(245, 129, 37, 1)",
               data: [], // データ格納用配列
             },
           ],
@@ -91,8 +89,32 @@ export default {
           },
           scales: {
             // スケールの設定
+            yAxes: [
+              {
+                gridLines: {
+                  // 補助線
+                  color: "rgba(255,255,255, 0.4)", // 補助線の色
+                  zeroLineColor: "white", // y=0（Ｘ軸の色）
+                },
+                ticks: {
+                  // 目盛り
+                  fontColor: "white", // 目盛りの色
+                  fontSize: 14, // フォントサイズ
+                },
+              },
+            ],
             xAxes: [
               {
+                gridLines: {
+                  // 補助線
+                  color: "rgba(255,255,255, 0.4)", // 補助線の色
+                  zeroLineColor: "white", // y=0（Ｘ軸の色）
+                },
+                ticks: {
+                  // 目盛り
+                  fontColor: "white", // 目盛りの色
+                  fontSize: 14, // フォントサイズ
+                },
                 // x軸の設定
                 type: "realtime", // リアルタイム描画
                 realtime: {
@@ -150,9 +172,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.price {
-  background-color: white;
-  height: 100vh;
-}
-</style>
+<style scoped></style>

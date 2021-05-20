@@ -8,9 +8,13 @@
         <li class="header__list" @click="$router.push('/currency')">
           通貨一覧
         </li>
-        <li class="header__list" @click="$router.push('/')">新規登録</li>
-        <li class="header__list" @click="$router.push('/login')">ログイン</li>
-        <li class="header__list" @click="Logout">ログアウト</li>
+        <li class="header__list" @click="$router.push('/')" v-if="login">
+          新規登録
+        </li>
+        <li class="header__list" @click="$router.push('/login')" v-if="login">
+          ログイン
+        </li>
+        <li class="header__list" @click="Logout" v-if="logout">ログアウト</li>
       </ul>
       <div
         class="menu"
@@ -25,15 +29,13 @@
     <transition name="right">
       <ul class="menu__nav" v-if="drawerFlg">
         <li class="menu__list">
-          <span @click="$router.push('/currency')">通貨一覧</span>
+          <span @click="$router.push('/currency')" v-if="logout">
+            通貨一覧</span
+          >
         </li>
         <li class="menu__list">
-          <span @click="$router.push('/')">新規登録</span>
+          <span @click="Logout" v-if="logout">ログアウト</span>
         </li>
-        <li class="menu__list">
-          <span @click="$router.push('/login')">ログイン</span>
-        </li>
-        <li class="menu__list"><span @click="Logout">ログアウト</span></li>
       </ul>
     </transition>
     <ul class="currency__nav">
@@ -75,7 +77,18 @@ export default {
       ],
       drawerFlg: false,
       active: false,
+      logout: false,
+      login: false,
     };
+  },
+  created() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.logout = true;
+      } else {
+        // No user is signed in.
+      }
+    });
   },
   methods: {
     openDrawerMenu() {
