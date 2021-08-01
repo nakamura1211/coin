@@ -10,7 +10,6 @@
 
 <script>
 import CompLine from "../components/CompLine.vue";
-import axios from "axios";
 
 
 export default {
@@ -23,26 +22,21 @@ export default {
     return {
       message: "",
       price:"",
-      // chart1 start
       chart1: {
-        type: "line", // チャート計上 line -> 折れ線グラフ
+        type: "line", 
         data: {
-          // チャートデータの設定
           datasets: [
             {
-              // データセット(複数指定可能)
-              label: this.name, // データラベル
-              backgroundColor: "rgba(245, 129, 37, 0.2)", // 背景色(fill)
+              label: this.name, 
+              backgroundColor: "rgba(245, 129, 37, 0.2)", 
               borderColor: "rgb(245, 129, 37, 1)",
-              data: [], // データ格納用配列
+              data: [],
             },
           ],
         },
         options: {
-          // チャートオプションの設定
-          maintainAspectRatio: false, // リサイズ時にアスペクト比を固定するか(True=固定)
+          maintainAspectRatio: false, 
           layout: {
-            // チャートレイアウト
             padding: {
               left: 100,
               right: 100,
@@ -51,38 +45,32 @@ export default {
             },
           },
           scales: {
-            // スケールの設定
             yAxes: [
               {
                 gridLines: {
-                  // 補助線
-                  color: "rgba(255,255,255, 0.4)", // 補助線の色
-                  zeroLineColor: "white", // y=0（Ｘ軸の色）
+                  color: "rgba(255,255,255, 0.4)", 
+                  zeroLineColor: "white",
                 },
                 ticks: {
-                  // 目盛り
-                  fontColor: "white", // 目盛りの色
-                  fontSize: 14, // フォントサイズ
+                  fontColor: "white",
+                  fontSize: 14,
                 },
               },
             ],
             xAxes: [
               {
                 gridLines: {
-                  // 補助線
-                  color: "rgba(255,255,255, 0.4)", // 補助線の色
-                  zeroLineColor: "white", // y=0（Ｘ軸の色）
+                  color: "rgba(255,255,255, 0.4)", 
+                  zeroLineColor: "white", 
                 },
                 ticks: {
-                  // 目盛り
-                  fontColor: "white", // 目盛りの色
-                  fontSize: 14, // フォントサイズ
+                  fontColor: "white", 
+                  fontSize: 14, 
                 },
-                // x軸の設定
-                type: "realtime", // リアルタイム描画
+                type: "realtime", 
                 realtime: {
                   duration: 300000,
-                  delay: 1000, // 滑らかに表示したい場合？
+                  delay: 1000, 
                   refresh: 60000,
                   onRefresh: (chart1) => {
                     chart1.data.datasets.forEach((dataset) => {
@@ -116,10 +104,6 @@ export default {
       const data = JSON.parse(e.data);
       this.message = data.last;
     });
-    const item = await axios.get(`/public/v1/ticker?symbol=${this.name}`);
-    const coinData = item.data.data;
-    this.price = coinData[0].last;
-    console.log(item);
   },
 };
 </script>
