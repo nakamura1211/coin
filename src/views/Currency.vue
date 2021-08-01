@@ -1,43 +1,6 @@
 <template>
   <div class="currency">
-    <div class="header">
-      <div class="header__logo">
-        CryptoApp
-      </div>
-      <ul class="header__nav">
-        <li class="header__list" @click="$router.push('/currency')">
-          通貨一覧
-        </li>
-        <li class="header__list" @click="$router.push('/')" v-if="login">
-          新規登録
-        </li>
-        <li class="header__list" @click="$router.push('/login')" v-if="login">
-          ログイン
-        </li>
-        <li class="header__list" @click="Logout" v-if="logout">ログアウト</li>
-      </ul>
-      <div
-        class="menu"
-        @click="openDrawerMenu"
-        :class="{ 'is-active': active }"
-      >
-        <span class="menu__line--top"></span>
-        <span class="menu__line--middle"></span>
-        <span class="menu__line--bottom"></span>
-      </div>
-    </div>
-    <transition name="right">
-      <ul class="menu__nav" v-if="drawerFlg">
-        <li class="menu__list">
-          <span @click="$router.push('/currency')" v-if="logout">
-            通貨一覧</span
-          >
-        </li>
-        <li class="menu__list">
-          <span @click="Logout" v-if="logout">ログアウト</span>
-        </li>
-      </ul>
-    </transition>
+    
     <ul class="currency__nav">
       <li
         class="currency__list"
@@ -63,7 +26,6 @@
 </template>
 
 <script>
-import firebase from "firebase";
 
 export default {
   data() {
@@ -75,34 +37,7 @@ export default {
         { itemId: 3, name: "LTC", namejp: "ライトコイン" },
         { itemId: 4, name: "XRP", namejp: "リップル" },
       ],
-      drawerFlg: false,
-      active: false,
-      logout: false,
-      login: false,
     };
-  },
-  created() {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.logout = true;
-      } else {
-        // No user is signed in.
-      }
-    });
-  },
-  methods: {
-    openDrawerMenu() {
-      this.drawerFlg = !this.drawerFlg;
-      this.active = !this.active;
-    },
-    Logout() {
-      firebase
-        .auth()
-        .signOut()
-        .then(() => {
-          this.$router.push("/login");
-        });
-    },
   },
 };
 </script>

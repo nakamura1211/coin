@@ -1,40 +1,5 @@
 <template>
   <div class="price">
-    <div class="header">
-      <div class="header__logo">
-        CryptoApp
-      </div>
-      <ul class="header__nav">
-        <li class="header__list" @click="$router.push('/currency')">
-          通貨一覧
-        </li>
-        <li class="header__list" @click="$router.push('/')" v-if="login">
-          新規登録
-        </li>
-        <li class="header__list" @click="$router.push('/login')" v-if="login">
-          ログイン
-        </li>
-        <li class="header__list" @click="Logout">ログアウト</li>
-      </ul>
-      <div
-        class="menu"
-        @click="openDrawerMenu"
-        :class="{ 'is-active': active }"
-      >
-        <span class="menu__line--top"></span>
-        <span class="menu__line--middle"></span>
-        <span class="menu__line--bottom"></span>
-      </div>
-    </div>
-    <transition name="right">
-      <ul class="menu__nav" v-if="drawerFlg">
-        <li class="menu__list">
-          <span @click="$router.push('/currency')">通貨一覧</span>
-        </li>
-        <li class="menu__list"><span @click="Logout">ログアウト</span></li>
-      </ul>
-    </transition>
-
     <div class="main">
       <div class="main__name">{{ name }} <br class="br-sp" />{{ namejp }}</div>
       <div class="main__final-price">最終取引価格</div>
@@ -60,7 +25,6 @@
 
 <script>
 import axios from "axios";
-import firebase from "firebase";
 import moment from "moment";
 
 export default {
@@ -75,9 +39,6 @@ export default {
     return {
       price: "",
       timestamp: "",
-      drawerFlg: false,
-      active: false,
-      login: false,
     };
   },
   async created() {
@@ -85,20 +46,6 @@ export default {
     const coinData = item.data.data;
     this.price = coinData[0].last;
     this.timestamp = coinData[0].timestamp;
-  },
-  methods: {
-    openDrawerMenu() {
-      this.drawerFlg = !this.drawerFlg;
-      this.active = !this.active;
-    },
-    Logout() {
-      firebase
-        .auth()
-        .signOut()
-        .then(() => {
-          this.$router.push("/login");
-        });
-    },
   },
 };
 </script>

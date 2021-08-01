@@ -1,10 +1,15 @@
 <template>
   <div id="app">
+    <Header/>
     <router-view />
   </div>
 </template>
-
-
+<script>
+import Header from "./components/Header";
+export default {
+  components: { Header }
+}
+</script>
 <style>
 html,
 body,
@@ -177,28 +182,6 @@ select {
   height: 100vh;
   font-family: "Noto Sans JP";
 }
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 48px;
-  margin-bottom: 96px;
-  background-color: black;
-  color: white;
-}
-.header__logo {
-  margin-left: 32px;
-  font-weight: bold;
-}
-.header__nav {
-  display: flex;
-}
-.header__list {
-  margin-right: 32px;
-  list-style: none;
-  cursor: pointer;
-}
 .authentication__title {
   font-size: 56px;
   font-weight: bold;
@@ -226,104 +209,25 @@ button {
   cursor: pointer;
   color: white;
 }
-.menu,
-transition {
+.br-sp {
   display: none;
 }
-.br-sp{
-  display: none;
-}
-span{
+span {
   cursor: pointer;
 }
 
 @media screen and (max-width: 768px) {
-  .br-sp{
+  .br-sp {
     display: inline-block;
   }
-  .header__nav {
-    display: none;
-  }
-
   .authentication__list {
     width: 80%;
   }
   button {
     width: 80%;
   }
-
-  .right-enter-active,
-  .right-leave-active {
-    transform: translate(0px, 0px);
-    transition: transform 225ms cubic-bezier(0, 0, 0.2, 1) 0ms;
-    list-style-type: none;
-  }
-  .right-enter,
-  .right-leave-to {
-    transform: translateX(100%) translateX(0px);
-  }
-
-  .menu__nav {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    right: 0;
-    background-color: white;
-    text-align: center;
-  }
-
-  .menu__list {
-    margin-top: 104px;
-    font-size: 24px;
-  }
-  .menu {
-    display: inline-block;
-    width: 32px;
-    height: 24px;
-    cursor: pointer;
-    position: relative;
-    right: 20px;
-    top: 2px;
-  }
-  .menu__line--top,
-  .menu__line--middle,
-  .menu__line--bottom {
-    display: inline-block;
-    width: 100%;
-    height: 4px;
-    background-color: white;
-    position: absolute;
-    transition: 0.5s;
-  }
-  .menu__line--top {
-    top: 0;
-  }
-  .menu__line--middle {
-    top: 10px;
-  }
-  .menu__line--bottom {
-    bottom: 0;
-  }
-  .menu.is-active span:nth-of-type(1) {
-    top: 10px;
-    transform: rotate(45deg);
-    background-color: black;
-  }
-  .menu.is-active span:nth-of-type(2) {
-    opacity: 0;
-  }
-  .menu.is-active span:nth-of-type(3) {
-    top: 10px;
-    transform: rotate(-45deg);
-    background-color: black;
-  }
-  .menu.is-active {
-    z-index: 10;
-  }
   span {
     cursor: pointer;
   }
-
 }
 </style>
